@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoadCSVHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">s0</a> &gt; <a href="index.source.html" class="el_package">edu.brown.cs.student.main.server</a> &gt; <span class="el_source">LoadCSVHandler.java</span></div><h1>LoadCSVHandler.java</h1><pre class="source lang-java linenums">package edu.brown.cs.student.main.server;
+
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
+import java.io.File;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+public class LoadCSVHandler implements Route {
+
+<span class="nc" id="L13">  public LoadCSVHandler() {}</span>
+
+  @Override
+  public Object handle(Request request, Response response) {
+<span class="nc" id="L17">    String fileName = request.queryParams(&quot;filename&quot;);</span>
+<span class="nc" id="L18">    File f = new File(fileName);</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">    if (f.exists()) {</span>
+<span class="nc" id="L20">      Server.loadedFile = f;</span>
+<span class="nc" id="L21">      return new loadCSVSuccessResponse(fileName).serialize();</span>
+    }
+<span class="nc" id="L23">    return new loadCSVFailureResponse(fileName).serialize();</span>
+  }
+
+<span class="nc" id="L26">  public record loadCSVSuccessResponse(String response, String filename) {</span>
+
+    public loadCSVSuccessResponse(String filename) {
+<span class="nc" id="L29">      this(&quot;success&quot;, filename);</span>
+<span class="nc" id="L30">    }</span>
+
+    String serialize() {
+      try {
+<span class="nc" id="L34">        Moshi moshi =</span>
+<span class="nc" id="L35">            new Moshi.Builder().add(PolymorphicJsonAdapterFactory.of(String.class, &quot;type&quot;)).build();</span>
+<span class="nc" id="L36">        JsonAdapter&lt;loadCSVSuccessResponse&gt; adapter = moshi.adapter(loadCSVSuccessResponse.class);</span>
+<span class="nc" id="L37">        return adapter.toJson(this);</span>
+<span class="nc" id="L38">      } catch (Exception e) {</span>
+<span class="nc" id="L39">        e.printStackTrace();</span>
+<span class="nc" id="L40">        throw e;</span>
+      }
+    }
+  }
+
+<span class="nc" id="L45">  public record loadCSVFailureResponse(String response, String filename) {</span>
+
+    public loadCSVFailureResponse(String filename) {
+<span class="nc" id="L48">      this(&quot;failure&quot;, filename);</span>
+<span class="nc" id="L49">    }</span>
+
+    String serialize() {
+<span class="nc" id="L52">      Moshi moshi = new Moshi.Builder().build();</span>
+<span class="nc" id="L53">      return moshi.adapter(loadCSVFailureResponse.class).toJson(this);</span>
+    }
+  }
+
+  // Takes in query Filepath
+
+  // Parser implementation for server
+  // Parse the file csv and return a JSON
+  // url/filename=&quot;&quot;
+
+  //  StringCreator creator = new StringCreator();
+  //    this.parser = new Parser(creator, fileReader);
+  //  List result = null;
+  //    try {
+  //    result = this.parser.parse();
+  //  } catch(IOException e) {
+  //    System.out.println(&quot;Empty file is being used&quot;);
+  //  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

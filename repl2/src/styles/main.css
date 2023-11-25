@@ -1,0 +1,34 @@
+.repl-command-box {
+    flex: display;
+    display:flex;
+    font-size: 0.75em;
+    width: max(30vw, 15em);
+    border-radius: 10px;
+}
+
+.container {
+  display:flex;
+  align-items:center;
+}
+
+.repl-history {
+  width: 70vw;
+  height: 50vh;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.table-dimensions {
+  width: 60em;
+  text-align: center;
+  white-space:pre;
+}
+
+.table-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+s0,edu.brown.cs.student.main.parsing,FactoryFailureException,10,0,0,0,3,0,1,0,1,0
+s0,edu.brown.cs.student.main.parsing,Parser,57,0,4,0,21,0,4,0,2,0
+s0,edu.brown.cs.student.main.parsing,Person,21,0,0,0,8,0,4,0,4,0
+s0,edu.brown.cs.student.main,Main,91,0,8,0,25,0,7,0,3,0
+s0,edu.brown.cs.student.main.server,LoadCSVHandler,29,0,2,0,7,0,3,0,2,0
+s0,edu.brown.cs.student.main.server,SearchcsvHandler,3,0,0,0,1,0,1,0,1,0
+s0,edu.brown.cs.student.main.server,viewCSVHandler.viewResponse,33,0,0,0,6,0,5,0,5,0
+s0,edu.brown.cs.student.main.server,LoadCSVHandler.loadCSVFailureResponse,31,0,0,0,5,0,5,0,5,0
+s0,edu.brown.cs.student.main.server,LoadCSVHandler.loadCSVSuccessResponse,42,0,0,0,10,0,5,0,5,0
+s0,edu.brown.cs.student.main.server,Server,32,0,0,0,12,0,3,0,3,0
+s0,edu.brown.cs.student.main.server,viewCSVHandler,29,0,0,0,6,0,2,0,2,0
+s0,edu.brown.cs.student.main.server,BroadbandHandler,40,0,0,0,14,0,3,0,3,0
+s0,edu.brown.cs.student.main.parsing.creators,StringCreator,5,0,0,0,2,0,2,0,2,0
+s0,edu.brown.cs.student.main.parsing.creators,PersonCreator,27,0,0,0,6,0,2,0,2,0
+s0,edu.brown.cs.student.main.searching,Search,172,0,26,0,41,0,17,0,4,0

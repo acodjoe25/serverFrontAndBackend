@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">s0</a> &gt; <a href="index.source.html" class="el_package">edu.brown.cs.student.main</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package edu.brown.cs.student.main;
+
+import edu.brown.cs.student.main.parsing.Parser;
+import edu.brown.cs.student.main.parsing.creators.StringCreator;
+import edu.brown.cs.student.main.searching.Search;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+/** The Main class of our project. This is where execution begins. */
+public final class Main {
+  /**
+   * The initial method called when execution begins.
+   *
+   * @param args An array of command line arguments
+   */
+  public static void main(String[] args) throws IOException {
+<span class="nc" id="L18">    new Main(args).run();</span>
+<span class="nc" id="L19">  }</span>
+
+  /**
+   * User input and primary logic is all conducted here. In essence the file reader, creator,
+   * parser, and searcher are all instantiated here. Arguments that the user inputs are used to fill
+   * in the file being used, target value that will be needed, and what indicators are being used by
+   * the user to narrow the search.
+   *
+   * @param args
+   * @throws IOException
+   */
+<span class="nc" id="L30">  private Main(String[] args) throws IOException {</span>
+<span class="nc" id="L31">    String filename = args[0]; // file path is stored in a string</span>
+<span class="nc" id="L32">    FileReader fileReader = null; // filereader initialized</span>
+    try {
+<span class="nc" id="L34">      fileReader =</span>
+          new FileReader(filename); // this try catch makes sure a valid file path is inputted
+<span class="nc" id="L36">    } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L37">      System.out.println(&quot;Cannot find file &quot; + filename);</span>
+<span class="nc" id="L38">    }</span>
+<span class="nc" id="L39">    StringCreator creator = new StringCreator();</span>
+<span class="nc" id="L40">    Parser parser = new Parser&lt;&gt;(creator, fileReader);</span>
+<span class="nc" id="L41">    Search searcher = new Search(parser, args[1]);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    if (args.length &gt; 2) { // this logic checks to see if an indicator has been inputted by the user</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">      if (args[2].equalsIgnoreCase(&quot;true&quot;)) { // if user inputs true, a header is being inputted</span>
+<span class="nc" id="L44">        System.out.println(searcher.findTargetHeader(args[3]));</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">      } else if ((args.length == 4)</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">          &amp;&amp; args[2].equalsIgnoreCase(</span>
+              &quot;false&quot;)) { // in this case it is known that a header is not coming, but
+<span class="nc" id="L48">        System.out.println(</span>
+<span class="nc" id="L49">            searcher.findTargetColumn(</span>
+<span class="nc" id="L50">                Integer.parseInt(args[3]))); // turn the string arg into an int</span>
+      }
+<span class="nc" id="L52">      System.out.println(</span>
+          searcher
+<span class="nc" id="L54">              .findTargetAll()); // if the user messes up the arguments, just conduct the default</span>
+      // search
+    } else {
+<span class="nc" id="L57">      System.out.println(searcher.findTargetAll()); // else run the default case</span>
+    }
+<span class="nc" id="L59">  }</span>
+
+<span class="nc" id="L61">  private void run() {}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

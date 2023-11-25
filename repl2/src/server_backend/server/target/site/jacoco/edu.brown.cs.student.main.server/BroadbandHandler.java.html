@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BroadbandHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">s0</a> &gt; <a href="index.source.html" class="el_package">edu.brown.cs.student.main.server</a> &gt; <span class="el_source">BroadbandHandler.java</span></div><h1>BroadbandHandler.java</h1><pre class="source lang-java linenums">package edu.brown.cs.student.main.server;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+<span class="nc" id="L13">public class BroadbandHandler implements Route {</span>
+  // Inputs: State query, county query
+<span class="nc" id="L15">  private String censusURL =</span>
+      &quot;https://api.census.gov/data/2021/acs/acs1/subject/variables?get=NAME,S2802_C03_022E&amp;for=county:*&amp;in=state:06&quot;;
+  private String state;
+  private String county;
+
+  @Override
+  public Object handle(Request request, Response response) throws Exception {
+<span class="nc" id="L22">    state = request.queryParams(&quot;state&quot;);</span>
+<span class="nc" id="L23">    county = request.queryParams(&quot;county&quot;);</span>
+    // Pass the state and county strings into the URL API for the census
+<span class="nc" id="L25">    this.buildArbitraryRequest();</span>
+
+<span class="nc" id="L27">    return &quot;Fulfilled&quot;;</span>
+  }
+
+  private void buildArbitraryRequest()
+      throws URISyntaxException, IOException, InterruptedException {
+    // Build a request to this BoredAPI. Try out this link in your browser, what do you see?
+    HttpRequest buildBoredApiRequest =
+<span class="nc" id="L34">        HttpRequest.newBuilder()</span>
+<span class="nc" id="L35">            .uri(</span>
+                new URI(
+                    &quot;https://api.census.gov/data/2021/acs/acs1/subject/variables?get=NAME,S2802_C03_022E&amp;for=county:&quot;
+                        + county
+                        + &quot;&amp;in=state:&quot;
+                        + state))
+<span class="nc" id="L41">            .GET()</span>
+<span class="nc" id="L42">            .build();</span>
+
+    // Send that API request then store the response in this variable. Note the generic type.
+    HttpResponse&lt;String&gt; sentBoredApiResponse =
+<span class="nc" id="L46">        HttpClient.newBuilder()</span>
+<span class="nc" id="L47">            .build()</span>
+<span class="nc" id="L48">            .send(buildBoredApiRequest, HttpResponse.BodyHandlers.ofString());</span>
+
+    // What's the difference between these two lines?
+    // System.out.println(sentBoredApiResponse);
+    // System.out.println(sentBoredApiResponse.body());
+<span class="nc" id="L53">  }</span>
+
+  /**
+   * //Additional questions: How to change query parameters in the URL? //What is the type of what
+   * HttpRequest returns when you build it? //finding percentage of households with broadband access
+   * for a target location //Take sentBoredApiResponse.body() and feed it to the parser? //Maybe we
+   * can just query by state and search through for the county? //What's the point of getting the
+   * county codes if we can filter by county name by string?
+   */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

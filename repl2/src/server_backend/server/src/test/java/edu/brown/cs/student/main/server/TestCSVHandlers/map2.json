@@ -1,0 +1,10 @@
+{
+  "type": "bannna",
+  "geometry": {
+    "type": "joey",
+    "coordinates": [11.1, 22.2, 33.3]
+  },
+  "properties": {
+    "name": "ello"
+  }
+}
